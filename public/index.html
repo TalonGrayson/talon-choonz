@@ -44,66 +44,77 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+
     <script>
-      (function getSpotifyInfo() {
-        /**
-         * Obtains parameters from the hash of the URL
-         * @return Object
-         */
-        function getHashParams() {
-          var hashParams = {};
-          var e,
-            r = /([^&;=]+)=?([^&;]*)/g,
-            q = window.location.hash.substring(1);
-          while ((e = r.exec(q))) {
-            hashParams[e[1]] = decodeURIComponent(e[2]);
+      function doTheThing() {
+        (function() {
+          /**
+           * Obtains parameters from the hash of the URL
+           * @return Object
+           */
+          function getHashParams() {
+            var hashParams = {};
+            var e,
+              r = /([^&;=]+)=?([^&;]*)/g,
+              q = window.location.hash.substring(1);
+            while ((e = r.exec(q))) {
+              hashParams[e[1]] = decodeURIComponent(e[2]);
+            }
+            return hashParams;
           }
-          return hashParams;
-        }
 
-        var currentlyPlayingSource = document.getElementById(
-            "currently-playing-template"
-          ).innerHTML,
-          currentlyPlayingTemplate = Handlebars.compile(currentlyPlayingSource),
-          currentlyPlayingPlaceholder = document.getElementById(
-            "currently-playing"
-          );
+          var currentlyPlayingSource = document.getElementById(
+              "currently-playing-template"
+            ).innerHTML,
+            currentlyPlayingTemplate = Handlebars.compile(
+              currentlyPlayingSource
+            ),
+            currentlyPlayingPlaceholder = document.getElementById(
+              "currently-playing"
+            );
 
-        var params = getHashParams();
+          var params = getHashParams();
 
-        var access_token = params.access_token,
-          refresh_token = params.refresh_token,
-          error = params.error;
+          var access_token = params.access_token,
+            refresh_token = params.refresh_token,
+            error = params.error;
 
-        if (error) {
-          alert("There was an error during the authentication");
-        } else {
-          if (access_token) {
-            $.ajax({
-              url: "https://api.spotify.com/v1/me/player",
-              headers: {
-                Authorization: `Bearer ${access_token}`
-              },
-              success: function(response) {
-                console.log(response);
-                currentlyPlayingPlaceholder.innerHTML = currentlyPlayingTemplate(
-                  response
-                );
-
-                $("#login").hide();
-                $("#loggedin").show();
-              },
-              complete: function() {
-                setInterval(getSpotifyInfo, 5000);
-              }
-            });
+          if (error) {
+            alert("There was an error during the authentication");
           } else {
-            // render initial screen
-            $("#login").show();
-            $("#loggedin").hide();
+            if (access_token) {
+              function getStuff() {
+                $.ajax({
+                  url: "https://api.spotify.com/v1/me/player",
+                  headers: {
+                    Authorization: `Bearer ${access_token}`
+                  },
+                  success: function(response) {
+                    console.log(response);
+                    currentlyPlayingPlaceholder.innerHTML = currentlyPlayingTemplate(
+                      response
+                    );
+
+                    $("#login").hide();
+                    $("#loggedin").show();
+                  }
+                });
+              }
+              getStuff();
+            } else {
+              // render initial screen
+              $("#login").show();
+              $("#loggedin").hide();
+            }
           }
-        }
-      })();
+        })();
+      }
+
+      doTheThing();
+
+      setInterval(function() {
+        doTheThing();
+      }, 3000);
     </script>
   </body>
 </html>
