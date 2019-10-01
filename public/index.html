@@ -28,7 +28,9 @@
   <body>
     <div class="container">
       <div id="login">
-        <a href="/login" class="btn btn-primary">Log in with Spotify</a>
+        <a id="login-button" href="/login" class="btn btn-primary"
+          >Log in with Spotify</a
+        >
       </div>
       <div id="loggedin">
         <div id="currently-playing"></div>
@@ -105,6 +107,8 @@
               // render initial screen
               $("#login").show();
               $("#loggedin").hide();
+
+              document.getElementById("login-button").click();
             }
           }
         })();
