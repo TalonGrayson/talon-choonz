@@ -1,0 +1,19 @@
+{
+  "author": "TalonGrayson (and Spotify)",
+  "name": "talon-choonz",
+  "description": "Attempt at a web-based 'now playing' source for OBS",
+  "version": "0.0.1",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.4",
+    "express": "~4.16.0",
+    "querystring": "~0.2.0",
+    "request": "~2.83.0"
+  },
+  "engines": {
+    "node": "10.x"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
