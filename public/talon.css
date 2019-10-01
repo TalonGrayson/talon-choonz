@@ -8,11 +8,11 @@ body {
   text-align: right;
   position: absolute;
   right: 0;
-  bottom: 0;
+  top: 0;
   display: inline-block;
-  padding: 12px 12px 12px 24px;
+  padding: 8px 12px 8px 24px;
   background-color: rgb(67, 68, 80);
   font-family: "Audiowide", cursive;
   color: white;
-  border-radius: 24px 0 0 0;
+  border-radius: 0 0 0 24px;
 }
