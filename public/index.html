@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Example of the Authorization Code flow with Spotify</title>
+    <title>Talon Choonz</title>
     <link
       rel="stylesheet"
       href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
     />
     <link rel="stylesheet" type="text/css" href="talon.css" />
     <link
-      href="https://fonts.googleapis.com/css?family=Audiowide&display=swap"
+      href="https://fonts.googleapis.com/css?family=Audiowide|Raleway&display=swap"
       rel="stylesheet"
     />
     <style type="text/css">
@@ -39,8 +39,20 @@
 
     <script id="currently-playing-template" type="text/x-handlebars-template">
       <div class="now-playing">
-        <h4>{{item.artists.[0].name}}</h4>
-        <h4>{{item.name}}</h4>
+        <div class="now-playing-info">
+          <div class="now-playing-image">
+            <img src="{{item.album.images.[0].url}}" class="album-image"/>
+          </div>
+          <div class="now-playing-text">
+            <h5 id="now-playing-artist">{{item.artists.[0].name}}</h5>
+            <h5 id="now-playing-track">{{item.name}}</h5>
+          </div>
+        </div>
+        <div id='progress-bar'>
+          <div class="progress" style="height: 4px;">
+            <div class="progress-bar" role="progressbar" style="width: {{percentage progress_ms item.duration_ms}}%" aria-valuenow="{{percentage progress_ms item.duration_ms}}" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
       </div>
     </script>
 
@@ -48,6 +60,10 @@
     <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
 
     <script>
+      Handlebars.registerHelper("percentage", function(thing1, thing2) {
+        return ((thing1 / thing2) * 100).toFixed(2);
+      });
+
       function doTheThing() {
         (function() {
           /**
@@ -118,7 +134,7 @@
 
       setInterval(function() {
         doTheThing();
-      }, 3000);
+      }, 600);
     </script>
   </body>
 </html>

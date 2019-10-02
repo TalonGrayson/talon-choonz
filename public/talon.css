@@ -5,14 +5,49 @@ body {
 }
 
 .now-playing {
-  text-align: right;
+  width: 400px;
+  height: 85px;
+  text-align: left;
   position: absolute;
-  right: 0;
-  top: 0;
+  left: 0;
+  bottom: 0;
   display: inline-block;
-  padding: 8px 12px 8px 24px;
-  background-color: rgb(67, 68, 80);
-  font-family: "Audiowide", cursive;
+  padding: 8px 24px 8px 16px;
+  background-color: rgb(67, 73, 80);
+  border-radius: 0 24px 0 0;
+}
+
+.now-playing-info {
+  display: flex;
+  padding-bottom: 8px;
+}
+
+#now-playing-artist {
+  font-family: "Raleway", cursive;
   color: white;
-  border-radius: 0 0 0 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#now-playing-track {
+  font-family: "Raleway", cursive;
+  color: white;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.now-playing-image {
+  width: 20%;
+  height: 50%;
+}
+
+.album-image {
+  width: 60px;
+}
+
+.now-playing-text {
+  width: 80%;
+  height: 50%;
 }
